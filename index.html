@@ -110,19 +110,19 @@
 </main>
 
 <!-- ============ PAGE 2: FORM ============ -->
-<main data-page="form">
+<main data-page="form" style="display: flex; flex-direction: column;">
   <section class="form-hero">
     <div class="wrap">
       <p class="kicker">Step 2 of 2</p>
       <h1>Club membership registration</h1>
-      <p>Tell us about yourself and pick a club. Fields marked <span style="color:var(--gold)">*</span> are required.</p>
+      <p>Tell us about yourself and pick a club. Fields marked <span style="color:gold">*</span> are required.</p>
     </div>
   </section>
 
   <section class="form-shell">
     <div class="wrap">
       <div class="success-box" id="successBox">
-        <h3>You're registered 🎉</h3>
+        <h3 style="margin:0 0 10px;color:#2f6b3d;font-size:19px;">You're registered 🎉</h3>
         <dl id="summaryList"></dl>
       </div>
 
@@ -200,11 +200,6 @@
           <p class="error-msg">Select a membership type.</p>
         </div>
 
-        <div class="field" id="f-photo"style="margin-bottom: 20px;">
-          <label for="photo">Profile photo (optional)</label>
-          <input type="file" id="photo" name="photo" accept="image/*">
-        </div>
-
         <div class="field" id="f-notes"style="margin-bottom: 20px;">
           <label for="notes">Anything else we should know? (optional)</label>
           <textarea id="notes" name="notes" placeholder="Prior experience, availability, accessibility needs…"></textarea>
@@ -233,7 +228,7 @@
       <p>Student Union Building, Room 214</p>
       <p>Gazipur, Dhaka Division</p>
       <p>clubs@campus.edu · (01) 234-5678</p>
-      <div class="socials">
+      <div class="socials"  style="display:flex;gap:12px;margin-top:14px;">
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 8h-2a2 2 0 0 0-2 2v10M9 13h6" stroke-linecap="round"/><path d="M20 4H4v16h16V4Z"/></svg></a>
         <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -255,7 +250,7 @@
 </footer>
 
 
-<script>
+  <script>
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('regForm');
   const successBox = document.getElementById('successBox');
@@ -320,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       clearError('f-dob');
     }
-
 
     const studentId = document.getElementById('studentId');
     if (!studentId.value || Number(studentId.value) < 10000) {
