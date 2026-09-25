@@ -49,13 +49,6 @@
 </nav>
 
 
-
-
-
-
-
-
-
 <main data-page="home" style="background-color: antiquewhite;">
   <section class="hero" id="home" >
     <div class="wrap">
@@ -262,8 +255,146 @@
 </footer>
 
 
-  <footer></footer>
-  <source src="script.js">
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('regForm');
+  const successBox = document.getElementById('successBox');
+  const summaryList = document.getElementById('summaryList');
+
+  const phonePattern = /^01\d{9}$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+  function showError(fieldId) {
+    const container = document.getElementById(fieldId);
+    if (container) {
+      container.classList.add('has-error');
+      const errorMsg = container.querySelector('.error-msg');
+      if (errorMsg) errorMsg.style.display = 'block';
+    }
+  }
+
+  function clearError(fieldId) {
+    const container = document.getElementById(fieldId);
+    if (container) {
+      container.classList.remove('has-error');
+      const errorMsg = container.querySelector('.error-msg');
+      if (errorMsg) errorMsg.style.display = 'none';
+    }
+  }
+
+  document.querySelectorAll('.error-msg').forEach(msg => msg.style.display = 'none');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); 
+    let isValid = true;
+
+    const fullName = document.getElementById('fullName');
+    if (!fullName.value.trim() || fullName.value.trim().length < 2) {
+      showError('f-name');
+      isValid = false;
+    } else {
+      clearError('f-name');
+    }
+
+    const email = document.getElementById('email');
+    if (!emailPattern.test(email.value.trim())) {
+      showError('f-email');
+      isValid = false;
+    } else {
+      clearError('f-email');
+    }
+
+    const phone = document.getElementById('phone');
+    if (!phonePattern.test(phone.value.trim())) {
+      showError('f-phone');
+      isValid = false;
+    } else {
+      clearError('f-phone');
+    }
+
+    const dob = document.getElementById('dob');
+    if (!dob.value) {
+      showError('f-dob');
+      isValid = false;
+    } else {
+      clearError('f-dob');
+    }
+
+
+    const studentId = document.getElementById('studentId');
+    if (!studentId.value || Number(studentId.value) < 10000) {
+      showError('f-studentid');
+      isValid = false;
+    } else {
+      clearError('f-studentid');
+    }
+
+    const password = document.getElementById('password');
+    if (!passwordPattern.test(password.value)) {
+      showError('f-password');
+      isValid = false;
+    } else {
+      clearError('f-password');
+    }
+
+    const confirmPassword = document.getElementById('confirmPassword');
+    if (!confirmPassword.value || confirmPassword.value !== password.value) {
+      showError('f-confirm');
+      isValid = false;
+    } else {
+      clearError('f-confirm');
+    }
+
+    const club = document.getElementById('club');
+    if (!club.value) {
+      showError('f-club');
+      isValid = false;
+    } else {
+      clearError('f-club');
+    }
+
+    const memberType = document.querySelector('input[name="memberType"]:checked');
+    if (!memberType) {
+      showError('f-type');
+      isValid = false;
+    } else {
+      clearError('f-type');
+    }
+
+    const terms = document.getElementById('terms');
+    if (!terms.checked) {
+      showError('f-terms');
+      isValid = false;
+    } else {
+      clearError('f-terms');
+    }
+
+    if (isValid) {
+      const notes = document.getElementById('notes').value.trim();
+
+      summaryList.innerHTML = `
+        <dt><strong>Full Name:</strong></dt><dd>${fullName.value.trim()}</dd>
+        <dt><strong>Email:</strong></dt><dd>${email.value.trim()}</dd>
+        <dt><strong>Phone:</strong></dt><dd>${phone.value.trim()}</dd>
+        <dt><strong>Date of Birth:</strong></dt><dd>${dob.value}</dd>
+        <dt><strong>Student ID:</strong></dt><dd>${studentId.value}</dd>
+        <dt><strong>Club:</strong></dt><dd>${club.value}</dd>
+        <dt><strong>Membership Type:</strong></dt><dd>${memberType.value}</dd>
+        ${notes ? `<dt><strong>Notes:</strong></dt><dd>${notes}</dd>` : ''}
+      `;
+
+      form.style.display = 'none';
+      successBox.style.display = 'block';
+    }
+  });
+
+  form.addEventListener('reset', () => {
+    document.querySelectorAll('.error-msg').forEach(msg => msg.style.display = 'none');
+    document.querySelectorAll('.field').forEach(field => field.classList.remove('has-error'));
+  });
+});
+</script>
 
 </body>
 </html>
